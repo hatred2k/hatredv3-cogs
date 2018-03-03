@@ -33,18 +33,6 @@ class Fortnite:
         return data.json()
 
     async def get_fortnite_data(self, username, platform=None):
-        """Retrieves raw data from fortnite servers.
-        Parameters
-        ----------
-        username : str
-            The epic-nickname of the user.
-        platform : str
-            The platform the user has played on.
-        Returns
-        -------
-        str
-            The raw statistical json data.
-        """
         headers = {
             'accept': "application/json",
             'content-type': "application/json",

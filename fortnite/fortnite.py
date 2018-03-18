@@ -113,7 +113,7 @@ class Fortnite:
                 data.add_field(name="K/D Ratio", value=stats["lifeTimeStats"][11]["value"])
                 data.add_field(name="Time Played", value=stats["lifeTimeStats"][13]["value"])
                 data.add_field(name="Average Survival Time", value=stats["lifeTimeStats"][14]["value"])
-                data.set_footer(text='Retrived from FortniteTracker | {}'.format(datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")), icon_url='https://i.imgur.com/IMjozOI.jpg')
+                data.set_footer(text='{}'.format(datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")), icon_url='https://i.imgur.com/IMjozOI.jpg')
                 data.set_author(name=author.name, icon_url=author.avatar_url)
                 
                 await ctx.send(embed=data)

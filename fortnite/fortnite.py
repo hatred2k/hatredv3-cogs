@@ -9,7 +9,9 @@ from discord.ext import commands
 
 from redbot.core.bot import Red
 from redbot.core import checks, Config, RedContext
+from redbot.core.i18n import CogI18n
 
+_ = CogI18n("Fortnite", __file__)
 
 class Fortnite:
     """Fortnite commands."""
@@ -34,17 +36,12 @@ class Fortnite:
         return data.json()
 
     async def get_fortnite_data(self, username, platform=None):
-        headers = {
-            'accept': "application/json",
-            'content-type': "application/json",
-            'TRN-Api-Key': "{}".format(await self.config.fortnite_api_key())
-        }
         if platform is None:
             platform = "pc"
         platforms = ["xbox", "psn", "pc"]
         url = "https://api.fortnitetracker.com/v1/profile/{}/{}".format(platform, username)
-        data = requests.request("GET", url, headers=headers)
-        if "error" in data.json():
+        req = await self.get_raw_player_data(url)
+        if "error" in req:
             platforms.remove(platform)
             try:
                 new_platform = random.choice(platforms)
@@ -58,11 +55,11 @@ class Fortnite:
                     if "error" in data:
                         return "Profile could not be found"
                 return data
-            except Exception as e:
+            except:
                 return
         else:
-            data = requests.request("GET", url, headers=headers)
-            return data.json()
+            req = await self.get_raw_player_data(url)
+            return req
 
 
     @checks.is_owner()
@@ -119,3 +116,5 @@ class Fortnite:
                 await ctx.send(embed=data)
             except TypeError:
                 await ctx.send("That profile could not be found.")
+            except ValueError:
+                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try encloding it in quotes.")

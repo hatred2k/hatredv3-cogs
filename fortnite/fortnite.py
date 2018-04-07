@@ -117,4 +117,4 @@ class Fortnite:
             except TypeError:
                 await ctx.send("That profile could not be found.")
             except ValueError:
-                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try encloding it in quotes.")
+                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try enclosing it in quotes.")

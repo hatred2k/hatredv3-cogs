@@ -1,0 +1,10 @@
+{
+    "author" : "hatred",
+    "bot_version" : [3,0,0],
+    "description" : "Post random dog and cat pictures.",
+    "hidden" : false,
+    "install_msg" : "Thank you for installing my cog. If you require help or run into any errors, please contact me on discord (hatred#0041)",
+    "requirements" : [],
+    "short" : "Random cats and dogs!",
+    "tags" : ["dog", "cat", "animal", "fun"]
+}

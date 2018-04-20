@@ -108,8 +108,8 @@ class Fortnite:
                 data.add_field(name="Matches Played", value=stats["lifeTimeStats"][7]["value"])
                 data.add_field(name="Kills", value=stats["lifeTimeStats"][10]["value"])
                 data.add_field(name="K/D Ratio", value=stats["lifeTimeStats"][11]["value"])
-                data.add_field(name="Time Played", value=stats["lifeTimeStats"][13]["value"])
-                data.add_field(name="Average Survival Time", value=stats["lifeTimeStats"][14]["value"])
+                data.add_field(name="Win %", value=stats["lifeTimeStats"][9]["value"])
+                #data.add_field(name="Average Survival Time", value=stats["lifeTimeStats"][14]["value"])
                 data.set_footer(text='{}'.format(datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")), icon_url='https://i.imgur.com/IMjozOI.jpg')
                 data.set_author(name=author.name, icon_url=author.avatar_url)
                 
@@ -117,4 +117,4 @@ class Fortnite:
             except TypeError:
                 await ctx.send("That profile could not be found.")
             except ValueError:
-                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try enclosing it in quotes.")
+                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try encloding it in quotes.")

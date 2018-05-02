@@ -53,7 +53,7 @@ class Fortnite:
                     url = "https://api.fortnitetracker.com/v1/profile/{}/{}".format(only_platform, username)
                     data = await self.get_raw_player_data(url)
                     if "error" in data:
-                        return "Profile could not be found"
+                        return
                 return data
             except:
                 return
@@ -112,9 +112,8 @@ class Fortnite:
                 #data.add_field(name="Average Survival Time", value=stats["lifeTimeStats"][14]["value"])
                 data.set_footer(text='{}'.format(datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")), icon_url='https://i.imgur.com/IMjozOI.jpg')
                 data.set_author(name=author.name, icon_url=author.avatar_url)
-                
                 await ctx.send(embed=data)
             except TypeError:
                 await ctx.send("That profile could not be found.")
             except ValueError:
-                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try encloding it in quotes.")
+                await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try enclosing it in quotes.")

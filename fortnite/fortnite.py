@@ -8,10 +8,11 @@ import requests
 from discord.ext import commands
 
 from redbot.core.bot import Red
-from redbot.core import checks, Config, RedContext
-from redbot.core.i18n import CogI18n
+from redbot.core import checks, Config
+from redbot.core.i18n import Translator
+from redbot.core.commands import Context
 
-_ = CogI18n("Fortnite", __file__)
+_ = Translator("Fortnite", __file__)
 
 class Fortnite:
     """Fortnite commands."""
@@ -64,12 +65,12 @@ class Fortnite:
 
     @checks.is_owner()
     @commands.group(name="fortniteset")
-    async def fortnite_set(self, ctx: RedContext):
+    async def fortnite_set(self, ctx: Context):
         if ctx.invoked_subcommand is None:
             await ctx.send_help()
 
     @fortnite_set.command(name="key", aliases=["token"])
-    async def set_key(self, ctx: RedContext, api_token):
+    async def set_key(self, ctx: Context, api_token):
         """Sets the fortnite API token
         You will need to register and generate a token.
 
@@ -87,7 +88,7 @@ class Fortnite:
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.guild_only()
     @commands.command()
-    async def fortnite(self, ctx: RedContext, username, platform=None):
+    async def fortnite(self, ctx: Context, username, platform=None):
         """Shows fortnite stats
 
         Defaults to PC"""

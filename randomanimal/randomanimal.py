@@ -5,7 +5,7 @@ import discord
 import requests
 from discord.ext import commands
 
-from redbot.core import RedContext
+from redbot.core.commands import Context
 from redbot.core.bot import Red
 
 
@@ -17,7 +17,7 @@ class Randomanimal:
 
 
     @commands.command()
-    async def randomcat(self, ctx: RedContext):
+    async def randomcat(self, ctx: Context):
         url = "http://aws.random.cat/meow"
         request_data = requests.get(url)
         data = discord.Embed(colour=random.randint(0x000000, 0xFFFFFF))
@@ -25,7 +25,7 @@ class Randomanimal:
         await ctx.send(embed=data)
 
     @commands.command()
-    async def randomdog(self, ctx: RedContext):
+    async def randomdog(self, ctx: Context):
         url = "https://random.dog/woof.json"
         request_data = requests.get(url)
         data = discord.Embed(colour=random.randint(0x000000, 0xFFFFFF))

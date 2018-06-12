@@ -1,13 +1,11 @@
 import asyncio
-import json
 import random
-import traceback
 
 import discord
 import requests
 from discord.ext import commands
 
-from redbot.core import RedContext
+from redbot.core.commands import Context
 from redbot.core.bot import Red
 
 

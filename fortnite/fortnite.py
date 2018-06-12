@@ -11,6 +11,7 @@ from redbot.core.bot import Red
 from redbot.core import checks, Config
 from redbot.core.i18n import Translator
 from redbot.core.commands import Context
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
 _ = Translator("Fortnite", __file__)
 
@@ -35,7 +36,38 @@ class Fortnite:
         }
         data = requests.request("GET", url, headers=headers)
         return data.json()
-        
+
+    
+    async def determine_win(self, username, index):
+        data = await self.get_lifetime_data(username)
+        if data["recentMatches"][index]["top1"] == 1:
+            return "Win"
+        else:
+            return "Loss"
+
+    
+    async def generate_recent_matches(self, ctx, index, username, platform):
+        lifetime = await self.get_lifetime_data(username, platform)
+        first = discord.Embed(title="{}".format(await self.get_gamemode_type(username, index)), colour=ctx.author.colour)
+        first.set_thumbnail(url=ctx.author.avatar_url)
+        first.add_field(name="Username", value=lifetime["epicUserHandle"])
+        first.add_field(name="Platform", value=lifetime["platformNameLong"])
+        first.add_field(name="Outcome", value=await self.determine_win(username, index))
+        first.add_field(name="Kills", value=lifetime["recentMatches"][index]["kills"])
+        first.add_field(name="Score", value=lifetime["recentMatches"][index]["score"])
+        first.add_field(name="Time Played", value=lifetime["recentMatches"][index]["minutesPlayed"])
+        first.set_footer(text="Date: {}".format(lifetime["recentMatches"][index]["dateCollected"]), icon_url="https://i.imgur.com/IMjozOI.jpg")
+        return first
+
+    
+    async def get_gamemode_type(self, username, index):
+        data = await self.get_lifetime_data(username)
+        if data["recentMatches"][index]["playlist"] is "p2":
+            return "Solo"
+        elif data["recentMatches"][index]["playlist"] is "p10":
+            return "Duos"
+        elif data["recentMatches"][index]["playlist"] is "p9":
+            return "Squads"
 
     async def get_lifetime_data(self, username, platform=None):
         if platform is None:
@@ -310,3 +342,19 @@ class Fortnite:
                 await ctx.send("That profile could not be found.")
             except ValueError:
                 await ctx.send("An error occured while attempting to retrieve the platform.\nIf the username has spaces, try enclosing it in quotes.")
+
+
+    @fortnite.command(name="matches", aliases=["recent"])
+    async def fortnite_matches(self, ctx: Context, username, platform=None):
+        """Shows recent matches
+
+        Defaults to PC"""
+        if await self.config.fortnite_api_key() is None:
+            await ctx.send("No API token found.\nYou can enter one by using `{}fortniteset token`".format(ctx.prefix))
+            return        
+        else:
+            first = await self.generate_recent_matches(ctx, 0, username, platform)
+            second = await self.generate_recent_matches(ctx, 1, username, platform)
+            third = await self.generate_recent_matches(ctx, 2, username, platform)
+            pages = [first, second, third]
+            await menu(ctx, pages, DEFAULT_CONTROLS)

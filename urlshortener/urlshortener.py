@@ -8,8 +8,9 @@ from discord.ext import commands
 from redbot.core.commands import Context
 from redbot.core.bot import Red
 
+BaseCog = getattr(commands, "Cog", object)
 
-class Urlshortener:
+class Urlshortener(BaseCog):
     """Urlshortener commands."""  
 
     def __init__(self, bot: Red):

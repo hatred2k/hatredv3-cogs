@@ -5,11 +5,15 @@ import discord
 import requests
 from discord.ext import commands
 
-from redbot.core.commands import Context
+from redbot.core import commands
+from redbot.core import Config, checks
 from redbot.core.bot import Red
+from redbot.core.config import Group
+from redbot.core.commands import Context
 
+BaseCog = getattr(commands, "Cog", object)
 
-class Randomanimal:
+class Randomanimal(BaseCog):
     """Randomanimal commands."""  
 
     def __init__(self, bot: Red):

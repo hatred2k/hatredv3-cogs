@@ -7,15 +7,19 @@ import datetime
 import requests
 from discord.ext import commands
 
+from redbot.core import commands
+from redbot.core import Config, checks
 from redbot.core.bot import Red
-from redbot.core import checks, Config
-from redbot.core.i18n import Translator
+from redbot.core.i18n import Translator, get_locale
+from redbot.core.config import Group
 from redbot.core.commands import Context
 from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
-_ = Translator("Fortnite", __file__)
 
-class Fortnite:
+_ = Translator("Fortnite", __file__)
+BaseCog = getattr(commands, "Cog", object)
+
+class Fortnite(BaseCog):
     """Fortnite commands."""
 
 

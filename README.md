@@ -1,5 +1,5 @@
 # [Hatred-Cogs](https://hatred2k.github.io/pages/cogs/)
-Mainly API and utility based cogs.                                                                                                       For any support related questions, please message me on discord (hatred#0041)
+(Discontinued) Mainly API and utility based cogs.                                                                                                       For any support related questions, please message me on discord (hatred#0041)
 
 # General
 * **Bonusly**: Integrates with [bonus.ly](https://bonusly.gelato.io/).
